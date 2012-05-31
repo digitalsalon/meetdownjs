@@ -20,6 +20,14 @@ exports.findOne = function (req, res, next) {
   });
 };
 
+exports.checkAuth = function(req, res, next) {
+    if (!req.session.user_id) {
+          res.send('You are not authorized to view this page');
+    } else {
+        next();
+    }
+};
+
 /*
  * Endware
  */
@@ -48,3 +56,15 @@ exports.index = function (req, res) {
     }
   });
 };
+
+exports.authenticate = function(req, res, next) {
+   var post = req.body;
+   if (post.username == 'walter' && post.password == 'walterpassword') {
+     req.session.user_id = 1588;
+     res.redirect('/');
+   } else {
+     res.send('Bad user/pass');
+  }
+};
+
+

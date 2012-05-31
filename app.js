@@ -20,6 +20,8 @@ app.configure(function(){
   app.set('view engine', 'hbs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: "SUPERSECRETKEY" }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
@@ -49,6 +51,9 @@ app.get('/',
   events.listUpcoming,
   events.markup,
   routes.index
+);
+app.post('/login',
+    users.authenticate
 );
 app.post('/my/events',
   users.collect,

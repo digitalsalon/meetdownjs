@@ -6,6 +6,16 @@
   <script src="/javascript/jquery.min.js"></script>
 </head>
 <body>
+
+<form method="POST" action="/login">
+  Username: <input type="text" name="username" size="15" /><br />
+  Password: <input type="password" name="password" size="15" /><br />
+  <p><input type="submit" value="Login" /></p>
+</form>
+
+Hello {{username}}
+
 {{{body}}}
+
 </body>
 </html>
