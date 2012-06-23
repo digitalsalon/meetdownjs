@@ -35,7 +35,7 @@ app.configure('production', function(){
 });
 
 app.configure(function() {
-  var db = new mongo.Db('test', new mongo.Server('localhost', 27017, {}), {});
+  var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
   db.open(function() {});
   app.set('db', db);
 });

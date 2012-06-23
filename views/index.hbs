@@ -27,7 +27,7 @@
   </header>
   <ul>
   {{#each upcoming}}
-    <li><a href="#{{date "YYYYMMDD" starts_at}}">{{title}}</a> {{date "M/D" starts_at}}</li>
+    <li>{{title}} {{date "M/D" starts_at}}</li>
   {{/each}}
   </ul>
 </section>
@@ -41,6 +41,10 @@
       data.rsvp = $(this).val();
       $.post('/my/events', data).done(function () {
         $('aside').html('Thanks for letting us know!');
+      }).fail(function (jqXHR, status, error) {
+        if (error === "Forbidden") {
+          $('<div>You need to <a href="/login">login</a> first</div>.').appendTo('aside');
+        }
       });
     });
   }());
