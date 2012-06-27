@@ -10,22 +10,41 @@ exports.collect = function (req, res, next) {
   });
 };
 
-exports.findOne = function (req, res, next) {
+exports.get = function (req, res, next) {
   var user, user_id;
   user_id = req.params.id || req.session.user;
   user = req.users.findOne({ _id: user_id }, function (error, user) {
-    if (!user) { throw new Error('User not found'); }
     req.user = user;
     next();
   });
 };
 
-exports.checkAuth = function(req, res, next) {
-    if (!req.session.user_id) {
-          res.send('You are not authorized to view this page');
-    } else {
-        next();
-    }
+exports.validate = function (req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.json({ 'error': 'invalid user' }, 400);
+  }
+};
+
+exports.uncollect = function (req, res, next) {
+  req.users = undefined;
+  next();
+};
+
+exports.findOne = [
+  exports.collect,
+  exports.get,
+  exports.validate,
+  exports.uncollect
+];
+
+exports.checkAuth = function (req, res, next) {
+  if (!req.session.user_id) {
+    res.send('You are not authorized to view this page');
+  } else {
+    next();
+  }
 };
 
 /*

@@ -56,7 +56,6 @@ app.post('/login',
     users.authenticate
 );
 app.post('/my/events',
-  users.collect,
   users.findOne,
   events.collect,
   events.findOne,
