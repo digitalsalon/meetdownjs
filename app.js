@@ -53,13 +53,20 @@ app.get('/',
   routes.index
 );
 app.post('/login',
-    users.authenticate
+  users.authenticate
 );
 app.post('/my/events',
   users.findOne,
-  events.collect,
-  events.findOne,
+  events.retrieve,
   events.update
+);
+app.get('/events/create',
+  events.create
+);
+app.post('/events',
+  events.dateify,
+  events.collect,
+  events.save
 );
 
 app.listen(3000, function(){

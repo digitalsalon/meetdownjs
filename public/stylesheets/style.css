@@ -6,3 +6,35 @@ body {
 a {
   color: #00B7FF;
 }
+
+form .instructions {
+  float: right;
+  font-size: 80%;
+}
+
+form div {
+  overflow: auto;
+}
+
+form fieldset {
+  margin: 10px 0;
+  border: none;
+}
+
+input#starts_at {
+  float: right;
+  font-size: 120%;
+  width: 25%;
+}
+
+input#title {
+  width: 50%;
+  font-size: 150%;
+}
+
+textarea#description {
+  display: block;
+  width: 100%;
+  font-size: 110%;
+  min-height: 200px;
+}

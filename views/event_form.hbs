@@ -1,0 +1,17 @@
+<h1>Create Event</h1>
+<form method="post" action="/events">
+  <input type="text" id="title" name="title" placeholder="Title">
+  <input type="datetime" id="starts_at" name="starts_at" placeholder="Month/Day/Year Hour:Min">
+  <textarea id="description" name="description" placeholder="Description"></textarea>
+  <div>
+    <span class="instructions">Format using <a href="http://github.github.com/github-flavored-markdown">Github Flavored Markdown</a></span>
+  </div>
+  <fieldset>
+    <legend>Location</legend>
+    <label for="location[name]">Name</label>
+    <input type="text" id="location[name]" name="location[name]">
+    <label for="location[url]">URL</label>
+    <input type="url" id="location[url]" name="location[url]" placeholder="http://example.com">
+  </fieldset>
+  <input type="submit" value="Save">
+</form>

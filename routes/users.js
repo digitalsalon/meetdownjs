@@ -76,7 +76,7 @@ exports.index = function (req, res) {
   });
 };
 
-exports.authenticate = function(req, res, next) {
+exports.authenticate = function (req, res, next) {
    var post = req.body;
    if (post.username == 'walter' && post.password == 'walterpassword') {
      req.session.user_id = 1588;
@@ -85,5 +85,3 @@ exports.authenticate = function(req, res, next) {
      res.send('Bad user/pass');
   }
 };
-
-
