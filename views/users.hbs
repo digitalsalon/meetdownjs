@@ -3,10 +3,10 @@
     <th>Name</th>
     <th>Created At</th>
   </tr>
+  {{#each users}}
   <tr>
-    {{#each users}}
     <td>{{name}}</td>
     <td>{{date "MMM Do, YYYY h:mm a" created_at}}</td>
-    {{/each}}
   </tr>
+  {{/each}}
 </table>

@@ -47,9 +47,7 @@ hbs.registerHelper('date', function (format, date) {
 // Routes
 
 app.get('/',
-  events.collect,
   events.listUpcoming,
-  events.markup,
   routes.index
 );
 app.post('/login',
@@ -57,11 +55,14 @@ app.post('/login',
 );
 app.post('/my/events',
   users.findOne,
-  events.retrieve,
+  events.findOne,
   events.update
 );
 app.get('/events/create',
   events.create
+);
+app.get('/events',
+  events.list
 );
 app.post('/events',
   events.dateify,

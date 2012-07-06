@@ -1,0 +1,27 @@
+<section>
+{{#if events.length}}
+  {{#each events}}
+  <article>
+    <header>
+      <hgroup>
+        <h2>{{title}}</h2>
+        <h3>{{date "dddd, MMM Do, \at h:mma" starts_at}}</h3>
+        {{#if location}}
+        <h4>@ <a href="{{location.url}}">{{location.name}}</a></h4>
+        {{/if}}
+      </hgroup>
+    </header>
+    <div>{{{description}}}</div>
+    <aside>
+      <a href="/events/edit/{{_id}}">Edit</a>
+      <form method="post" action="/events/{{_id}}">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete">
+      </form>
+    </aside>
+  </article>
+  {{/each}}
+{{else}}
+  <h2>No upcoming events</h2>
+{{/if}}
+</section>
