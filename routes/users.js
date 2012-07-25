@@ -32,13 +32,6 @@ exports.uncollect = function (req, res, next) {
   next();
 };
 
-exports.findOne = [
-  exports.collect,
-  exports.get,
-  exports.validate,
-  exports.uncollect
-];
-
 exports.checkAuth = function (req, res, next) {
   if (!req.session.user_id) {
     res.send('You are not authorized to view this page');
@@ -85,3 +78,14 @@ exports.authenticate = function (req, res, next) {
      res.send('Bad user/pass');
   }
 };
+
+/*
+ * Bundles
+ */
+
+exports.findOne = [
+  exports.collect,
+  exports.get,
+  exports.validate,
+  exports.uncollect
+];
