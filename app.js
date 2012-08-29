@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -9,12 +8,27 @@ var express = require('express')
   , moment = require('moment')
   , routes = require('./routes')
   , users = require('./routes/users')
-  , events = require('./routes/events');
+  , events = require('./routes/events')
+  , everyauth = require('everyauth')
+  , settings = require('./settings_testing');
+
+
+// OAuth
+everyauth.github
+  .appId(settings.GITHUB_OAUTH2_ID)
+  .appSecret(settings.GITHUB_OAUTH2_SECRET)
+  .findOrCreateUser( function (session, accessToken, accessTokenExtra, githubUserMetadata) {
+    console.log("Meetdown/Github Login Handshake OAUTH Handshake performed")
+    // Need to check DB for user by GitHubID.  If doesn't not exist, add.
+    return {};
+  }).redirectPath('/');
+
+everyauth.debug = true;
+
 
 var app = module.exports = express.createServer();
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'hbs');
@@ -22,6 +36,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({ secret: "SUPERSECRETKEY" }));
+  app.use(everyauth.middleware());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
@@ -50,8 +65,10 @@ app.get('/',
   events.listUpcoming,
   routes.index
 );
-app.post('/login',
-  users.authenticate
+app.all('/auth/github/callback',
+  function (request, response) {
+    console.log("Got here");
+  }
 );
 app.post('/my/events',
   users.findOne,

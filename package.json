@@ -8,5 +8,6 @@
     , "hbs": ">= 1.0.2"
     , "moment": ">= 1.6.0"
     , "github-flavored-markdown": ">= 1.0.1"
+    , "everyauth": "0.3.0"
   }
 }

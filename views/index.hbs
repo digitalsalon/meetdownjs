@@ -43,7 +43,7 @@
         $('aside').html('Thanks for letting us know!');
       }).fail(function (jqXHR, status, error) {
         if (jqXHR.status === 400) {
-          $('<div>You need to <a href="/login">login</a> first</div>.').appendTo('aside');
+          $('<div>You need to <a href="/auth/github">login</a> first</div>.').appendTo('aside');
         }
       });
     });
