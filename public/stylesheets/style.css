@@ -1,4 +1,9 @@
 body {
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+/*
+body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -38,3 +43,4 @@ textarea#description {
   font-size: 110%;
   min-height: 200px;
 }
+*/
