@@ -1,17 +1,29 @@
-<h1>Create Event</h1>
+<h1>{{#if _id}}Edit{{else}}Create{{/if}} Event</h1>
 <form method="post" action="/events">
-  <input type="text" id="title" name="title" placeholder="Title">
-  <input type="datetime" id="starts_at" name="starts_at" placeholder="Month/Day/Year Hour:Min">
-  <textarea id="description" name="description" placeholder="Description"></textarea>
+  {{#if _id}}<input type="hidden" name="_method" value="put">{{/if}}
+  <input type="text" id="title" name="title"
+         placeholder="Title" value="{{title}}" required>
+  <input type="datetime" id="starts_at" name="starts_at"
+         placeholder="Month/Day/Year Hour:Min" value="{{date "MM/DD/YYYY HH:mm" starts_at}}" required>
   <div>
-    <span class="instructions">Format using <a href="http://github.github.com/github-flavored-markdown">Github Flavored Markdown</a></span>
+      <textarea class="span9" rows="7" id="description" name="description" placeholder="Description">{{description}}</textarea>
   </div>
-  <fieldset>
+  <span class="instructions">Format using <a href="http://github.github.com/github-flavored-markdown">Github Flavored Markdown</a></span>
+  <fieldset class="form-horizontal">
     <legend>Location</legend>
-    <label for="location[name]">Name</label>
-    <input type="text" id="location[name]" name="location[name]">
-    <label for="location[url]">URL</label>
-    <input type="url" id="location[url]" name="location[url]" placeholder="http://example.com">
+    <div class="control-group">
+        <label class="control-label" for="location[name]">Name</label>
+        <div class="controls">
+            <input type="text" id="location[name]" name="location[name]" value="{{location.name}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="location[url]">URL</label>
+        <div class="controls">
+            <input type="url" id="location[url]" name="location[url]"
+                   placeholder="http://example.com" value="{{location.url}}">
+        </div>
+    </div>
   </fieldset>
-  <input type="submit" value="Save">
+  <input class="btn" type="submit" value="Save">
 </form>
