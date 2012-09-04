@@ -8,6 +8,20 @@ Start the mongo daemon (in a new terminal):
 
     $ sudo mongod
 
+[Register your application with GitHub](https://github.com/settings/applications/new)
+
+    Application Name: your-unique-app-name-here
+    Main URL: http://localhost:3000
+    Callback URL: http://localhost:3000/auth/github/callback
+
+Create a file named settings_testing.json and save to your node application root
+    
+    //paste this file and replace id + secret key values from your registered application
+    {
+        "GITHUB_OAUTH2_ID": "paste-your-id-here",
+        "GITHUB_OAUTH2_SECRET": "paste-your-secret-here"
+    }
+
 Start the server (in another terminal; [tmux][] anyone?):
 
     $ node app
