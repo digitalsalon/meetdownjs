@@ -1,13 +1,13 @@
 {
-    "name": "meetdownjs"
-  , "version": "0.1.0"
-  , "private": true
-  , "dependencies": {
-      "express": "2.5.8"
-    , "mongodb": ">= 0.9.6-7"
-    , "hbs": ">= 1.0.2"
-    , "moment": ">= 1.6.0"
-    , "github-flavored-markdown": ">= 1.0.1"
-    , "everyauth": "0.3.0"
+  "name": "meetdownjs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "~3.0.0rc4",
+    "mongodb": "~0.9.6-7",
+    "hbs": "~1.0.2",
+    "moment": "~1.6.0",
+    "github-flavored-markdown": "~1.0.1",
+    "everyauth": "~0.3.0"
   }
 }

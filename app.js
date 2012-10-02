@@ -4,6 +4,8 @@
  */
 
 var express = require('express')
+  , http = require('http')
+  , path = require('path')
   , mongo = require('mongodb')
   , hbs = require('hbs')
   , moment = require('moment')
@@ -12,7 +14,7 @@ var express = require('express')
   , events = require('./routes/events')
   , auth = require('./lib/auth');
 
-var app = module.exports = express.createServer();
+var app = express();
 
 app.configure(function () {
   var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
@@ -32,8 +34,11 @@ app.configure('development', function () {
 
 // Configuration
 app.configure(function () {
+  app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'hbs');
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
@@ -44,10 +49,6 @@ app.configure(function () {
 });
 
 app.configure('development', function () {
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function () {
   app.use(express.errorHandler());
 });
 
@@ -58,17 +59,8 @@ hbs.registerHelper('date', function (format, date) {
 // Routes
 
 app.get('/',
-  function (req, res, next) {
-    console.log(req.session);
-    next();
-  },
   events.listUpcoming,
   routes.index
-);
-app.all('/auth/github/callback',
-  function (request, response) {
-    console.log("Got here");
-  }
 );
 app.post('/my/events',
   users.findOne,
@@ -87,6 +79,6 @@ app.post('/events',
   events.save
 );
 
-app.listen(3000, function () {
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+http.createServer(app).listen(app.get('port'), function () {
+  console.log("Express server listening on port " + app.get('port'));
 });
