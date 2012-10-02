@@ -25,7 +25,7 @@ exports.uncollect = function (req, res, next) {
   next();
 };
 
-exports.findAll = function(req, res, next) {
+exports.findAll = function (req, res, next) {
   req.events
    .find()
    .sort({ starts_at: 1 })
