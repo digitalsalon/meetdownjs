@@ -58,10 +58,7 @@ hbs.registerHelper('date', function (format, date) {
 
 // Routes
 
-app.get('/',
-  events.listUpcoming,
-  routes.index
-);
+app.get('/', routes.home);
 app.post('/my/events',
   users.findOne,
   events.findOne,

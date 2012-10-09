@@ -1,3 +1,5 @@
+var events = require("./events");
+
 exports.index = function (req, res) {
   var next = req.found.shift();
   res.render('index', {
@@ -6,3 +8,8 @@ exports.index = function (req, res) {
     upcoming: req.found
   });
 };
+
+exports.home = [
+  events.listUpcoming,
+  exports.index
+];
