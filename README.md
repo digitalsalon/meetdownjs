@@ -14,9 +14,8 @@ Start the mongo daemon (in a new terminal):
     Main URL: http://localhost:3000
     Callback URL: http://localhost:3000/auth/github/callback
 
-Create a file named settings_testing.json and save to your node application root
+Create a file named settings_testing.json and save to your node application root. Paste the code below and replace id + secret key values from your registered application.
     
-    //paste this file and replace id + secret key values from your registered application
     {
         "GITHUB_OAUTH2_ID": "paste-your-id-here",
         "GITHUB_OAUTH2_SECRET": "paste-your-secret-here"
