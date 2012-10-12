@@ -16,10 +16,18 @@ var express = require('express')
 
 var app = express();
 
-app.configure(function () {
+app.configure('development', function () {
   var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
-  db.open(function () {});
   app.set('db', db);
+});
+
+app.configure('stage', function () {
+  var db = mongo.Db('test', mongo.Server('localhost', 28502, {}), {});
+  app.set('db', db);
+});
+
+app.configure(function () {
+  app.get('db').open(function () {});
 });
 
 app.configure('development', function () {
