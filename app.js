@@ -24,6 +24,7 @@ app.configure('development', function () {
 app.configure('stage', function () {
   var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
   app.set('db', db);
+  app.set('trust proxy', true);
 });
 
 app.configure(function () {
