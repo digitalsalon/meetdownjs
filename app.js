@@ -9,6 +9,7 @@ var express = require('express')
   , mongo = require('mongodb')
   , hbs = require('hbs')
   , moment = require('moment')
+  , nodemailer = require('nodemailer')
   , routes = require('./routes')
   , users = require('./routes/users')
   , events = require('./routes/events')
@@ -60,12 +61,22 @@ hbs.registerHelper('date', function (format, date) {
 
 app.get('/',
   events.listUpcoming,
-  routes.index
+  routes.index,
+  console.log(express)
 );
 app.post('/my/events',
   users.findOne,
   events.findOne,
   events.update
+);
+app.get('/email',
+  function(req, res, next) {
+    var transport = nodemailer.createTransport("SMTP");
+    transport.sendMail({
+    from: "7evenseaz@gmail.com",
+    to: "chris@lissomesoftware.com"
+});
+  }
 );
 app.get('/events/create',
   events.create
