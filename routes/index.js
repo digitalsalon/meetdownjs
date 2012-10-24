@@ -5,7 +5,8 @@ exports.index = function (req, res) {
   res.render('index', {
     title: 'Meetdown.js',
     next: next,
-    upcoming: req.found
+    upcoming: req.found,
+    user_name: req.session.user_name
   });
 };
 
