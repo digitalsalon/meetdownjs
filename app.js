@@ -25,9 +25,10 @@ app.configure(function () {
 app.configure('development', function () {
   app.use(auth.configuration(__dirname + '/settings_testing', {
     debug: true,
-    saveUser: function (githubUserMetadata) {
+    saveUser: function (session, githubUserMetadata) {
+      session.user_name = githubUserMetadata.name;
       // TODO: save to database???
-      console.log(githubUserMetadata.email);
+      console.log(githubUserMetadata);
     }
   }));
 });
