@@ -16,10 +16,19 @@ var express = require('express')
 
 var app = express();
 
-app.configure(function () {
+app.configure('development', function () {
   var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
-  db.open(function () {});
   app.set('db', db);
+});
+
+app.configure('stage', function () {
+  var db = mongo.Db('test', mongo.Server('localhost', 27017, {}), {});
+  app.set('db', db);
+  app.set('trust proxy', true);
+});
+
+app.configure(function () {
+  app.get('db').open(function () {});
 });
 
 app.configure('development', function () {
@@ -32,13 +41,16 @@ app.configure('development', function () {
   }));
 });
 
+app.configure('development', function () {
+  app.use(express.logger('dev'));
+});
+
 // Configuration
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'hbs');
   app.use(express.favicon());
-  app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
@@ -58,10 +70,7 @@ hbs.registerHelper('date', function (format, date) {
 
 // Routes
 
-app.get('/',
-  events.listUpcoming,
-  routes.index
-);
+app.get('/', routes.home);
 app.post('/my/events',
   users.findOne,
   events.findOne,
