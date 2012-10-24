@@ -1,4 +1,5 @@
 var md = require("github-flavored-markdown");
+var scheduleAlarms = require("../lib/scheduleAlarms");
 
 /*
  * Middleware
@@ -73,7 +74,10 @@ exports.create = function (req, res) {
 exports.save = function (req, res) {
   req.events.save(req.body, function (error, docs) {
     if (error) { throw new Error(error); }
-    else { res.send(docs); }
+    else {
+      scheduleAlarms(docs);
+      res.send(docs);
+    }
   });
 };
 
