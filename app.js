@@ -36,7 +36,17 @@ app.configure('development', function () {
     debug: true,
     saveUser: function (githubUserMetadata) {
       // TODO: save to database???
-      console.log(githubUserMetadata.email);
+      app.get('db').collection('users', function (error, users) {
+        if (error) { return new Error(error); }
+        users.save({
+          email: githubUserMetadata.email,
+          github_id: githubUserMetadata.id,
+          github_login: githubUserMetadata.login
+        }, function (error, doc) {
+          var id = doc._id;
+        });
+      });
+      console.log(githubUserMetadata);
     }
   }));
 });
@@ -56,6 +66,12 @@ app.configure(function () {
   app.use(express.cookieParser());
   app.use(express.session({ secret: "SUPERSECRETKEY" }));
   app.use(auth.middleware());
+  app.use(function (req, res, next) {
+    if (req.session.auth) {
+      res.locals.user_name = req.session.auth.github.user.name;
+    }
+    next();
+  });
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
