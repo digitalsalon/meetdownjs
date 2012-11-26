@@ -20,7 +20,7 @@ exports.get = function (req, res, next) {
 };
 
 exports.validate = function (req, res, next) {
-  if (req.user) {
+  if (req.session.auth) {
     next();
   } else {
     res.json({ 'error': 'invalid user' }, 400);
